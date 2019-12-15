@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Konva from "konva";
 
-import Container from "./Container";
+import Container from "./components/Container";
 
-import "./style.css";
+import "./style/style.css";
 
 function App() {
   const [konvaStage, setKonvaStage] = useState();

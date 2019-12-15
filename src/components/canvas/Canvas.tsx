@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import Konva from "konva";
 
-const Canvas = (props: {stage: any, layer: any}) => {
+const Canvas = (props: { stage: any; layer: any; }) => {
   useEffect(() => {
     let stage = props.stage;
     let layer = props.layer;
-
     if (!stage || !layer) return;
 
     stage.add(layer);
@@ -209,7 +208,7 @@ const Canvas = (props: {stage: any, layer: any}) => {
     });
   });
 
-  return <React.Fragment />;
+  return <div className="canvas-container" id="App" />;
 };
 
 export default Canvas;
