@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Konva from "konva";
 
-const Canvas = (props: any) => {
+const Canvas = (props: {stage: any, layer: any}) => {
   useEffect(() => {
     let stage = props.stage;
     let layer = props.layer;
@@ -154,7 +154,7 @@ const Canvas = (props: any) => {
         }
       }
 
-      function setTextareaWidth(newWidth:any) {
+      function setTextareaWidth(newWidth:number) {
         if (!newWidth) {
           // set width for placeholder
           newWidth = textNode.placeholder.length * textNode.fontSize();

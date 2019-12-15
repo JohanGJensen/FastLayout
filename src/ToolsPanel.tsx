@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Konva from "konva";
 
-const ToolsPanel = (props: any) => {
+const ToolsPanel = (props: {stage: any, layer: any}) => {
   useEffect(() => {
     let stage = props.stage;
     let layer = props.layer;
@@ -23,14 +23,6 @@ const ToolsPanel = (props: any) => {
       // we can register it manually:
       stage.setPointersPositions(e);
 
-      //Konva.Image.fromURL(itemURL, function(image) {
-      // layer.add(image);
-
-      //image.position(stage.getPointerPosition());
-      //image.draggable(true);
-
-      //layer.draw();
-      //});
       const image = new Konva.Image({
         width: 50,
         height: 50,

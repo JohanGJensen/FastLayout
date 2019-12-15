@@ -4,7 +4,7 @@ import Konva from "konva";
 
 import Container from "./Container";
 
-import "./styles.css";
+import "./style.css";
 
 function App() {
   const [konvaStage, setKonvaStage] = useState();
