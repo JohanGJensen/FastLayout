@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
+import { useTheme } from "react-jss";
 import Konva from "konva";
 
+import {styles} from "../../style/style";
+
 const Canvas = (props: { stage: any; layer: any; }) => {
+  const theme = useTheme();
+  const classes = styles({theme});
+
   useEffect(() => {
     let stage = props.stage;
     let layer = props.layer;
@@ -208,7 +214,7 @@ const Canvas = (props: { stage: any; layer: any; }) => {
     });
   });
 
-  return <div className="canvas-container" id="App" />;
+  return <div className={'canvas-container ' + classes.App} id="App" />;
 };
 
 export default Canvas;

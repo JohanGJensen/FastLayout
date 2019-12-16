@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
+import { useTheme } from "react-jss";
 import Konva from "konva";
 
+import {styles} from "../../style/style";
+
 const ToolsPanel = (props: {stage: any, layer: any}) => {
+  const theme = useTheme();
+  const classes = styles({theme});
+
   useEffect(() => {
     let stage = props.stage;
     let layer = props.layer;
@@ -67,7 +73,7 @@ const ToolsPanel = (props: {stage: any, layer: any}) => {
   });
 
   return (
-    <div id="drag-items" className="tools-panel">
+    <div id="drag-items" className={'tools-panel ' + classes.toolsPanel}>
       <img src="https://placekitten.com/50/50" alt="cat" draggable="true" />
     </div>
   );

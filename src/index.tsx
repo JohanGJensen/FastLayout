@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "react-jss";
 import ReactDOM from "react-dom";
 import Konva from "konva";
 
 import Container from "./components/Container";
 
-import "./style/style.css";
+import {styles} from "./style/style";
 
 function App() {
+  const theme = useTheme();
+  const classes = styles({theme});
+
   const [konvaStage, setKonvaStage] = useState();
   const [konvaLayer, setKonvaLayer] = useState();
 
@@ -26,8 +30,11 @@ function App() {
     setKonvaLayer(layer);
   }, []);
 
-  return <Container stage={konvaStage} layer={konvaLayer} />;
+  return (
+    <div className={classes.theme}>
+      <Container stage={konvaStage} layer={konvaLayer} />
+    </div>
+    );
 }
-
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
