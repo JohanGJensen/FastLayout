@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
-import { useTheme } from "react-jss";
+// import { useTheme } from "react-jss";
 import Konva from "konva";
 
-import {styles} from "../../style/style";
+import ToolsButton from '../buttons/ToolsButton';
 
-const ToolsPanel = (props: {stage: any, layer: any}) => {
-  const theme = useTheme();
-  const classes = styles({theme});
+import { styles } from "../../style/style";
+import { iconImage, iconCanvas, iconShape, iconText } from '../../assets/images/images';
+
+const ToolsPanel = (props: { stage: any, layer: any }) => {
+  const classes = styles();
 
   useEffect(() => {
     let stage = props.stage;
@@ -17,11 +19,11 @@ const ToolsPanel = (props: {stage: any, layer: any}) => {
     stage.add(layer);
 
     var con = stage.container();
-    con.addEventListener("dragover", function(e: { preventDefault: () => void; }) {
+    con.addEventListener("dragover", function (e: { preventDefault: () => void; }) {
       e.preventDefault(); // !important
     });
 
-    con.addEventListener("drop", function(e: { preventDefault: () => void; }) {
+    con.addEventListener("drop", function (e: { preventDefault: () => void; }) {
       e.preventDefault();
       // now we need to find pointer position
       // we can't use stage.getPointerPosition() here, because that event
@@ -35,7 +37,7 @@ const ToolsPanel = (props: {stage: any, layer: any}) => {
         x: 0,
         y: 0,
         draggable: true,
-        dragBoundFunc: function(pos) {
+        dragBoundFunc: function (pos) {
           let xPos;
           let yPos;
 
@@ -63,7 +65,7 @@ const ToolsPanel = (props: {stage: any, layer: any}) => {
       } as Konva.ImageConfig);
 
       const imageObj1 = new Image();
-      imageObj1.onload = function() {
+      imageObj1.onload = function () {
         image.image(imageObj1);
         layer.draw();
       };
@@ -74,7 +76,10 @@ const ToolsPanel = (props: {stage: any, layer: any}) => {
 
   return (
     <div id="drag-items" className={'tools-panel ' + classes.toolsPanel}>
-      <img src="https://placekitten.com/50/50" alt="cat" draggable="true" />
+      <ToolsButton icon={iconImage} />
+      <ToolsButton icon={iconShape} />
+      <ToolsButton icon={iconText} />
+      <ToolsButton icon={iconCanvas} />
     </div>
   );
 };

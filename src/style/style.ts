@@ -1,32 +1,47 @@
 import { createUseStyles } from "react-jss";
 
-export const styles = createUseStyles ({
+export const styles = createUseStyles({
     theme: {
-        'padding': 0,
-        'margin': 0,
-      
+        // background: '#C9C9C9',
+        'width': '100%',
+        'height': '100%',
+    },
+    App: {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-      
-        'width': '100vw',
-        'height': '100vh',
     },
-    App: {
+    Canvas: {
         'font-family': 'sans-serif',
         'text-align': 'center',
-      
-        'border': '1px solid black',
-      
+
+        'background': '#FFFFFF',
+
         'height': '500px',
         'width': '500px',
     },
     toolsPanel: {
-        'width': '500px',
-        'height': '100px',
-      
-        'background': 'grey',
-        'margin': '0 0 20px',
-        'border': '1px solid black',
+        'display': 'flex',
+
+        'position': 'absolute',
+        'top': '0px',
+
+        'width': '100%',
+        'height': '45px',
+
+        'background': '#FFFFFF',
+        // 'margin': '0 0 20px',
+        // 'border': '1px solid black',
+    },
+});
+
+export const buttons = createUseStyles({
+    toolsButton: {
+        'width': '45px',
+        'height': '45px',
+
+        'display': 'flex',
+        'justify-content': 'center',
+        'align-items': 'center',
     },
 });

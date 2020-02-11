@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { useTheme } from "react-jss";
+// import { useTheme } from "react-jss";
 import Konva from "konva";
 
-import {styles} from "../../style/style";
+import { styles } from "../../style/style";
 
 const Canvas = (props: { stage: any; layer: any; }) => {
-  const theme = useTheme();
-  const classes = styles({theme});
+  const classes = styles();
 
   useEffect(() => {
     let stage = props.stage;
@@ -23,7 +22,7 @@ const Canvas = (props: { stage: any; layer: any; }) => {
       fontFamily: "Verdana",
       draggable: true,
       widthText: 200,
-      dragBoundFunc: function(pos) {
+      dragBoundFunc: function (pos) {
         let xPos;
         let yPos;
 
@@ -56,13 +55,13 @@ const Canvas = (props: { stage: any; layer: any; }) => {
       node: textNode,
       enabledAnchors: ["middle-left", "middle-right"],
       // set minimum width of text
-      boundBoxFunc: function(oldBox: any, newBox: any) {
+      boundBoxFunc: function (oldBox: any, newBox: any) {
         newBox.width = Math.max(30, newBox.width);
         return newBox;
       }
     } as Konva.RectConfig);
 
-    textNode.on("transform", function() {
+    textNode.on("transform", function () {
       // reset scale, so only with is changing by transformer
       textNode.setAttrs({
         width: textNode.width() * textNode.scaleX(),
@@ -148,18 +147,18 @@ const Canvas = (props: { stage: any; layer: any; }) => {
       textarea.focus();
 
       function removeTextarea() {
-        if(textarea.parentNode != null) {
-            
-            textarea.parentNode.removeChild(textarea);
-            window.removeEventListener("click", handleOutsideClick);
-            textNode.show();
-            tr.show();
-            tr.forceUpdate();
-            layer.draw();
+        if (textarea.parentNode != null) {
+
+          textarea.parentNode.removeChild(textarea);
+          window.removeEventListener("click", handleOutsideClick);
+          textNode.show();
+          tr.show();
+          tr.forceUpdate();
+          layer.draw();
         }
       }
 
-      function setTextareaWidth(newWidth:number) {
+      function setTextareaWidth(newWidth: number) {
         if (!newWidth) {
           // set width for placeholder
           newWidth = textNode.placeholder.length * textNode.fontSize();
@@ -181,7 +180,7 @@ const Canvas = (props: { stage: any; layer: any; }) => {
         textarea.style.width = newWidth + "px";
       }
 
-      textarea.addEventListener("keydown", function(e) {
+      textarea.addEventListener("keydown", function (e) {
         // hide on enter
         // but don't hide on shift + enter
         if (e.keyCode === 13 && !e.shiftKey) {
@@ -194,7 +193,7 @@ const Canvas = (props: { stage: any; layer: any; }) => {
         }
       });
 
-      textarea.addEventListener("keydown", function(e) {
+      textarea.addEventListener("keydown", function (e) {
         var scale = textNode.getAbsoluteScale().x;
         setTextareaWidth(textNode.width() * scale);
         textarea.style.height = "auto";
@@ -214,7 +213,7 @@ const Canvas = (props: { stage: any; layer: any; }) => {
     });
   });
 
-  return <div className={'canvas-container ' + classes.App} id="App" />;
+  return <div className={'canvas-container ' + classes.Canvas} id="App" />;
 };
 
 export default Canvas;
