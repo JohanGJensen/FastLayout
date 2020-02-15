@@ -4,11 +4,11 @@ import Konva from "konva";
 
 import ToolsButton from '../buttons/ToolsButton';
 
-import { styles } from "../../style/style";
-import { iconImage, iconCanvas, iconShape, iconText } from '../../assets/images/images';
+import { styles, buttons } from "../../style/style";
 
 const ToolsPanel = (props: { stage: any, layer: any }) => {
   const classes = styles();
+  const button = buttons();
 
   useEffect(() => {
     let stage = props.stage;
@@ -76,10 +76,11 @@ const ToolsPanel = (props: { stage: any, layer: any }) => {
 
   return (
     <div id="drag-items" className={'tools-panel ' + classes.toolsPanel}>
-      <ToolsButton icon={iconImage} />
-      <ToolsButton icon={iconShape} />
-      <ToolsButton icon={iconText} />
-      <ToolsButton icon={iconCanvas} />
+      <ToolsButton icon={button.iconBurger} />
+      <ToolsButton icon={button.iconImage} />
+      <ToolsButton icon={button.iconShape} />
+      <ToolsButton icon={button.iconText} />
+      <ToolsButton icon={button.iconCanvas} />
     </div>
   );
 };

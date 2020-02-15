@@ -1,6 +1,7 @@
 import React from "react";
 
 import ToolsPanel from "./panels/ToolsPanel";
+import SidePanel from "./panels/SidePanel";
 import Canvas from "./canvas/Canvas";
 
 import { styles } from "../style/style";
@@ -11,6 +12,7 @@ const Container = (props: { stage: object, layer: object }) => {
   return (
     <div id="container" className={classes.App}>
       <ToolsPanel stage={props.stage} layer={props.layer} />
+      <SidePanel />
       <Canvas stage={props.stage} layer={props.layer} />
     </div>
   );

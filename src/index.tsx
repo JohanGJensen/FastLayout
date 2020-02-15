@@ -4,12 +4,9 @@ import ReactDOM from "react-dom";
 import Konva from "konva";
 
 import Container from "./components/Container";
-
 import "./style/style.css";
-// import { styles } from "./style/style";
 
 function App() {
-    // const classes = styles();
 
     const [konvaStage, setKonvaStage] = useState();
     const [konvaLayer, setKonvaLayer] = useState();
@@ -30,7 +27,9 @@ function App() {
         setKonvaLayer(layer);
     }, []);
 
-    return (<Container stage={konvaStage} layer={konvaLayer} />);
+    return (
+        <Container stage={konvaStage} layer={konvaLayer} />
+    );
 }
 
 const rootElement = document.getElementById("root");

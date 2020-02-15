@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { observer } from 'mobx-react-lite';
+import { panelStore } from '../../mobx/panelStore';
 
 import { buttons } from "../../style/style";
 
-const ToolsButton = (props: { icon: any }) => {
+const ToolsButton = observer((props: { icon: string }) => {
+    const store = useContext(panelStore);
     const classes = buttons();
 
     return (
-        <div className={classes.toolsButton}>
-            <img src={props.icon} alt={''} />
-        </div>
+        <button onClick={() => { store.toggle() }} className={classes.toolsButton + ' ' + props.icon} />
     );
-};
+});
 
 export default ToolsButton;
