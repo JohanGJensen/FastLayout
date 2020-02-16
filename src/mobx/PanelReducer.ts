@@ -1,19 +1,27 @@
-export const initialState = { left: '0px' };
-
 interface action {
     type: string
 }
 
 interface sidepanel {
-    left: string
+    title: string,
+    left: string,
+    show: boolean,
+    toggle: any
 }
 
-export function panelReducer(state: sidepanel, action: action) {
+export const initialState = {
+    title: 'FastLayout',
+    left: '0px',
+    show: false,
+    toggle() {
+        this.show = !this.show
+    }
+};
+
+export function reducer(state = initialState, action: action) {
     switch (action.type) {
-        case 'show':
-            return { left: '0px' };
-        case 'hide':
-            return { left: '-200px' };
+        case 'toggle':
+            return { show: !state.show };
         default:
             throw new Error();
     }

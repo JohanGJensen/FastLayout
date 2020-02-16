@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 import { observer } from 'mobx-react-lite';
-import { panelStore } from '../../mobx/panelStore';
+import { panelStore } from '../../mobx/Store';
 
 import { buttons } from "../../style/style";
 
-const ToolsButton = observer((props: { icon: string }) => {
+const ToolsButton = observer((props: { icon: string, component: JSX.ElementAttributesProperty }) => {
     const store = useContext(panelStore);
     const classes = buttons();
 
     return (
-        <button onClick={() => { store.toggle() }} className={classes.toolsButton + ' ' + props.icon} />
+        <button onClick={() => { store.toggle(); store.setComponent(props.component) }} className={classes.toolsButton + ' ' + props.icon} />
     );
 });
 

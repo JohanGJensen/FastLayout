@@ -4,6 +4,13 @@ import Konva from "konva";
 
 import ToolsButton from '../buttons/ToolsButton';
 
+
+import MenuSideBar from './MenuSideBar';
+import ImagesSideBar from './ImagesSideBar';
+import ShapeSideBar from './ShapeSideBar';
+import TextSideBar from './TextSideBar';
+import CanvasSideBar from './CanvasSideBar';
+
 import { styles, buttons } from "../../style/style";
 
 const ToolsPanel = (props: { stage: any, layer: any }) => {
@@ -76,11 +83,11 @@ const ToolsPanel = (props: { stage: any, layer: any }) => {
 
   return (
     <div id="drag-items" className={'tools-panel ' + classes.toolsPanel}>
-      <ToolsButton icon={button.iconBurger} />
-      <ToolsButton icon={button.iconImage} />
-      <ToolsButton icon={button.iconShape} />
-      <ToolsButton icon={button.iconText} />
-      <ToolsButton icon={button.iconCanvas} />
+      <ToolsButton icon={button.iconBurger} component={MenuSideBar()} />
+      <ToolsButton icon={button.iconImage} component={ImagesSideBar()} />
+      <ToolsButton icon={button.iconShape} component={ShapeSideBar()} />
+      <ToolsButton icon={button.iconText} component={TextSideBar()} />
+      <ToolsButton icon={button.iconCanvas} component={CanvasSideBar()} />
     </div>
   );
 };

@@ -33,7 +33,7 @@ export const styles = createUseStyles({
 
         'background': '#FFFFFF',
     },
-    sidePanel: {
+    sideBar: {
         'position': 'absolute',
         'top': '0px',
 
