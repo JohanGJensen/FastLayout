@@ -6,14 +6,14 @@ import Canvas from "./canvas/Canvas";
 
 import { styles } from "../style/style";
 
-const Container = (props: { stage: object, layer: object }) => {
+const Container = () => {
   const classes = styles();
 
   return (
     <div id="container" className={classes.App}>
-      <ToolsPanel stage={props.stage} layer={props.layer} />
+      <ToolsPanel />
       <SideBar />
-      <Canvas stage={props.stage} layer={props.layer} />
+      <Canvas />
     </div>
   );
 };

@@ -1,36 +1,13 @@
-import React, { useEffect, useState } from "react";
-// import { useTheme } from "react-jss";
+import React, { } from "react";
 import ReactDOM from "react-dom";
-import Konva from "konva";
+import { observer } from 'mobx-react-lite';
 
 import Container from "./components/Container";
 import "./style/style.css";
 
-function App() {
-
-    const [konvaStage, setKonvaStage] = useState();
-    const [konvaLayer, setKonvaLayer] = useState();
-
-    useEffect(() => {
-        var width = 500;
-        var height = 500;
-
-        const stage = new Konva.Stage({
-            container: "App",
-            width: width,
-            height: height
-        });
-
-        const layer = new Konva.Layer();
-
-        setKonvaStage(stage);
-        setKonvaLayer(layer);
-    }, []);
-
-    return (
-        <Container stage={konvaStage} layer={konvaLayer} />
-    );
-}
+const App = observer(() => {
+    return (<Container />);
+})
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);

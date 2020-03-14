@@ -34,14 +34,18 @@ export const styles = createUseStyles({
         'background': '#FFFFFF',
     },
     sideBar: {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'align-items': 'center',
         'position': 'absolute',
         'top': '0px',
 
         'height': '100vh',
         'width': '200px',
         'background': '#FFFFFF',
+        'padding-top': '70px',
 
-        'transition': 'all 0.2s ease-out',
+        'transition': 'all 0.1s ease-out',
     },
     show: {
         'left': '0px',

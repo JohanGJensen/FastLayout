@@ -1,8 +1,150 @@
-import React from 'react';
+import React, { useState, useLayoutEffect, useContext } from 'react';
+import Konva from "konva";
+
+import { konvaStore, imageObject } from '../../mobx/Store';
 
 function ImagesSideBar() {
+    const store = useContext(konvaStore);
+
+    const images = [
+        {
+            id: 1,
+            src: "https://placekitten.com/165/85",
+            alt: "kitten",
+            width: 165,
+            height: 85,
+        },
+        {
+            id: 2,
+            src: "https://picsum.photos/165/85",
+            alt: "random",
+            width: 165,
+            height: 85,
+        },
+        {
+            id: 3,
+            src: "https://picsum.photos/165/85",
+            alt: "random",
+            width: 165,
+            height: 85,
+        },
+    ]
+
+    useLayoutEffect(() => {
+        let stage = store.stage;
+        let layer = store.layer;
+
+        if (!stage || !layer) return;
+
+        // const stageContainer = stage.container();
+
+        // stageContainer.addEventListener("dragover", function (e: { preventDefault: () => void; }) {
+        //     e.preventDefault(); // !important
+        // });
+
+        // stageContainer.addEventListener("drop", function (e: { preventDefault: () => void; }) {
+        //     e.preventDefault();
+
+        //     // stage.setPointersPositions(e);
+
+        //     const image = new Konva.Image({
+        //         width: 50,
+        //         height: 50,
+        //         x: 0,
+        //         y: 0,
+        //         draggable: true,
+        //         dragBoundFunc: function (pos) {
+        //             let xPos;
+        //             let yPos;
+
+        //             if (pos.y < 0) {
+        //                 yPos = 0;
+        //             } else if (pos.y > stage.height() - this.getHeight()) {
+        //                 yPos = stage.height() - this.getHeight();
+        //             } else {
+        //                 yPos = pos.y;
+        //             }
+
+        //             if (pos.x < 0) {
+        //                 xPos = 0;
+        //             } else if (pos.x > stage.width() - this.getWidth()) {
+        //                 xPos = stage.width() - this.getWidth();
+        //             } else {
+        //                 xPos = pos.x;
+        //             }
+
+        //             return {
+        //                 x: xPos,
+        //                 y: yPos
+        //             };
+        //         }
+        //     } as Konva.ImageConfig);
+
+        //     const imageObj = new Image();
+
+        //     imageObj.onload = function () {
+        //         image.image(imageObj);
+        //         layer.draw();
+        //     };
+
+        //     imageObj.src = "https://placekitten.com/50/50";
+        //     layer.add(image);
+        // });
+
+    }, [store]);
+
+    const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files === null) return;
+
+        const files = Array.from(e.target.files);
+        const formData = new FormData()
+
+        files.forEach((file, i) => {
+            formData.append(i.toString(), file);
+        });
+
+        const API_URL = "https://res.cloudinary.com/duaanuhwc";
+
+        fetch(`${API_URL}/image-upload`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
+        // .then(res => res.json())
+        // .then(images => {
+        //     console.log(images);
+        // })
+    }
+
+    const onDrag = (e: { preventDefault: () => void; }, image: imageObject) => {
+        e.preventDefault();
+
+        store.setDraggedImage(image);
+    }
+
+    const getImages = () => {
+        return images.map(image => {
+            return (
+                <img
+                    onDrag={e => onDrag(e, image)}
+                    key={image.id}
+                    className={'image-sidebar-image'}
+                    src={image.src}
+                    alt={image.alt} />
+            )
+        });
+    }
+
     return (
-        <p className={'paragraph'}>Images Menu</p>
+        <>
+            {getImages()}
+            <div key={2} className={'upload-btn-wrapper'}>
+                <button key={3} className={'btn'}>Upload a file</button>
+                <input key={4} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpload(e)} type="file" name="myfile" multiple />
+            </div>
+        </>
     );
 };
 

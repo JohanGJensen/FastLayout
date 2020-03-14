@@ -4,12 +4,12 @@ import { panelStore } from '../../mobx/Store';
 
 import { buttons } from "../../style/style";
 
-const ToolsButton = observer((props: { icon: string, component: JSX.ElementAttributesProperty }) => {
+const ToolsButton = observer((props: { Id: string, icon: string, component: JSX.ElementAttributesProperty }) => {
     const store = useContext(panelStore);
     const classes = buttons();
 
     return (
-        <button onClick={() => { store.toggle(); store.setComponent(props.component) }} className={classes.toolsButton + ' ' + props.icon} />
+        <button onClick={() => { store.toggle(props.Id); store.setComponent(props.component) }} className={classes.toolsButton + ' ' + props.icon} />
     );
 });
 

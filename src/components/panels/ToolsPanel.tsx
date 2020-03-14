@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-// import { useTheme } from "react-jss";
-import Konva from "konva";
+import React from "react";
+// import Konva from "konva";
 
 import ToolsButton from '../buttons/ToolsButton';
-
 
 import MenuSideBar from './MenuSideBar';
 import ImagesSideBar from './ImagesSideBar';
@@ -13,81 +11,17 @@ import CanvasSideBar from './CanvasSideBar';
 
 import { styles, buttons } from "../../style/style";
 
-const ToolsPanel = (props: { stage: any, layer: any }) => {
+const ToolsPanel = () => {
   const classes = styles();
   const button = buttons();
 
-  useEffect(() => {
-    let stage = props.stage;
-    let layer = props.layer;
-
-    if (!stage || !layer) return;
-
-    stage.add(layer);
-
-    var con = stage.container();
-    con.addEventListener("dragover", function (e: { preventDefault: () => void; }) {
-      e.preventDefault(); // !important
-    });
-
-    con.addEventListener("drop", function (e: { preventDefault: () => void; }) {
-      e.preventDefault();
-      // now we need to find pointer position
-      // we can't use stage.getPointerPosition() here, because that event
-      // is not registered by Konva.Stage
-      // we can register it manually:
-      stage.setPointersPositions(e);
-
-      const image = new Konva.Image({
-        width: 50,
-        height: 50,
-        x: 0,
-        y: 0,
-        draggable: true,
-        dragBoundFunc: function (pos) {
-          let xPos;
-          let yPos;
-
-          if (pos.y < 0) {
-            yPos = 0;
-          } else if (pos.y > stage.height() - this.getHeight()) {
-            yPos = stage.height() - this.getHeight();
-          } else {
-            yPos = pos.y;
-          }
-
-          if (pos.x < 0) {
-            xPos = 0;
-          } else if (pos.x > stage.width() - this.getWidth()) {
-            xPos = stage.width() - this.getWidth();
-          } else {
-            xPos = pos.x;
-          }
-
-          return {
-            x: xPos,
-            y: yPos
-          };
-        }
-      } as Konva.ImageConfig);
-
-      const imageObj1 = new Image();
-      imageObj1.onload = function () {
-        image.image(imageObj1);
-        layer.draw();
-      };
-      imageObj1.src = "https://placekitten.com/50/50";
-      layer.add(image);
-    });
-  });
-
   return (
     <div id="drag-items" className={'tools-panel ' + classes.toolsPanel}>
-      <ToolsButton icon={button.iconBurger} component={MenuSideBar()} />
-      <ToolsButton icon={button.iconImage} component={ImagesSideBar()} />
-      <ToolsButton icon={button.iconShape} component={ShapeSideBar()} />
-      <ToolsButton icon={button.iconText} component={TextSideBar()} />
-      <ToolsButton icon={button.iconCanvas} component={CanvasSideBar()} />
+      <ToolsButton Id={'menu'} icon={button.iconBurger} component={MenuSideBar()} />
+      <ToolsButton Id={'image'} icon={button.iconImage} component={ImagesSideBar()} />
+      <ToolsButton Id={'shape'} icon={button.iconShape} component={ShapeSideBar()} />
+      <ToolsButton Id={'text'} icon={button.iconText} component={TextSideBar()} />
+      <ToolsButton Id={'canvas'} icon={button.iconCanvas} component={CanvasSideBar()} />
     </div>
   );
 };

@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
-// import { useTheme } from "react-jss";
+import React, { useLayoutEffect, useContext } from "react";
+import { observer } from 'mobx-react-lite';
 import Konva from "konva";
 
 import { styles } from "../../style/style";
 
-const Canvas = (props: { stage: any; layer: any; }) => {
+import { konvaStore } from '../../mobx/Store';
+
+const Canvas = observer(() => {
+    const store = useContext(konvaStore);
     const classes = styles();
 
-    useEffect(() => {
-        let stage = props.stage;
-        let layer = props.layer;
+    useLayoutEffect(() => {
+        let stage = store.stage;
+        let layer = store.layer;
+
         if (!stage || !layer) return;
 
         stage.add(layer);
@@ -211,9 +215,79 @@ const Canvas = (props: { stage: any; layer: any; }) => {
                 window.addEventListener("click", handleOutsideClick);
             });
         });
-    });
+    }, [store]);
 
-    return <div className={'canvas-container ' + classes.Canvas} id="App" />;
-};
+    const onDragOver = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+    }
+
+    const onDrop = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+
+        let stage = store.stage;
+        let layer = store.layer;
+
+        if (!stage || !layer) return;
+
+        // stage.setPointersPositions(e);
+        const image = store.draggedImage;
+        const konvaImage = new Konva.Image({
+            width: image.width,
+            height: image.height,
+            x: 0,
+            y: 0,
+            draggable: true,
+            dragBoundFunc: function (pos) {
+                let xPos;
+                let yPos;
+
+                if (pos.y < 0) {
+                    yPos = 0;
+                } else if (pos.y > stage.height() - this.getHeight()) {
+                    yPos = stage.height() - this.getHeight();
+                } else {
+                    yPos = pos.y;
+                }
+
+                if (pos.x < 0) {
+                    xPos = 0;
+                } else if (pos.x > stage.width() - this.getWidth()) {
+                    xPos = stage.width() - this.getWidth();
+                } else {
+                    xPos = pos.x;
+                }
+
+                return {
+                    x: xPos,
+                    y: yPos
+                };
+            }
+        } as Konva.ImageConfig);
+
+        const imageObj = new Image();
+
+        imageObj.onload = function () {
+            konvaImage.image(imageObj);
+            layer.draw();
+        };
+
+        imageObj.src = image.src;
+        layer.add(konvaImage);
+
+        store.setDraggedImage({
+            id: null,
+            src: '',
+            alt: '',
+            width: 0,
+            height: 0,
+        });
+    }
+
+    return <div
+        onDragOver={e => onDragOver(e)}
+        onDrop={e => onDrop(e)}
+        className={'canvas-container ' + classes.Canvas}
+        id="App" />;
+});
 
 export default Canvas;

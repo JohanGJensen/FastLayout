@@ -10,7 +10,6 @@ const SideBar = observer(() => {
 
     let toggle = store.show;
 
-    console.log(store.getComponent());
     return (
         <div className={classes.sideBar + ' ' + (toggle ? classes.show : classes.hide)} >
             {store.getComponent()}
