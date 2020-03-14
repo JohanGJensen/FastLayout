@@ -1,5 +1,5 @@
-import React, { useState, useLayoutEffect, useContext } from 'react';
-import Konva from "konva";
+import React, { useContext } from 'react';
+// import Konva from "konva";
 
 import { konvaStore, imageObject } from '../../mobx/Store';
 
@@ -29,69 +29,6 @@ function ImagesSideBar() {
             height: 85,
         },
     ]
-
-    useLayoutEffect(() => {
-        let stage = store.stage;
-        let layer = store.layer;
-
-        if (!stage || !layer) return;
-
-        // const stageContainer = stage.container();
-
-        // stageContainer.addEventListener("dragover", function (e: { preventDefault: () => void; }) {
-        //     e.preventDefault(); // !important
-        // });
-
-        // stageContainer.addEventListener("drop", function (e: { preventDefault: () => void; }) {
-        //     e.preventDefault();
-
-        //     // stage.setPointersPositions(e);
-
-        //     const image = new Konva.Image({
-        //         width: 50,
-        //         height: 50,
-        //         x: 0,
-        //         y: 0,
-        //         draggable: true,
-        //         dragBoundFunc: function (pos) {
-        //             let xPos;
-        //             let yPos;
-
-        //             if (pos.y < 0) {
-        //                 yPos = 0;
-        //             } else if (pos.y > stage.height() - this.getHeight()) {
-        //                 yPos = stage.height() - this.getHeight();
-        //             } else {
-        //                 yPos = pos.y;
-        //             }
-
-        //             if (pos.x < 0) {
-        //                 xPos = 0;
-        //             } else if (pos.x > stage.width() - this.getWidth()) {
-        //                 xPos = stage.width() - this.getWidth();
-        //             } else {
-        //                 xPos = pos.x;
-        //             }
-
-        //             return {
-        //                 x: xPos,
-        //                 y: yPos
-        //             };
-        //         }
-        //     } as Konva.ImageConfig);
-
-        //     const imageObj = new Image();
-
-        //     imageObj.onload = function () {
-        //         image.image(imageObj);
-        //         layer.draw();
-        //     };
-
-        //     imageObj.src = "https://placekitten.com/50/50";
-        //     layer.add(image);
-        // });
-
-    }, [store]);
 
     const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files === null) return;
