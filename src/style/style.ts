@@ -30,6 +30,7 @@ export const styles = createUseStyles({
 
         'width': '100%',
         'height': '45px',
+        "border-bottom": 'solid 0.1px #000000',
 
         'background': '#FFFFFF',
     },
@@ -37,13 +38,15 @@ export const styles = createUseStyles({
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'center',
+        'justify-content': 'space-between',
         'position': 'absolute',
         'top': '0px',
 
         'height': '100vh',
         'width': '200px',
         'background': '#FFFFFF',
-        'padding-top': '70px',
+        // 'padding-top': '70px',
+        "border-right": 'solid 0.1px #000000',
 
         'transition': 'all 0.1s ease-out',
     },
@@ -51,7 +54,7 @@ export const styles = createUseStyles({
         'left': '0px',
     },
     hide: {
-        'left': '-200px',
+        'left': '-201px',
     }
 });
 

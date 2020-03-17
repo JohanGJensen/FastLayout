@@ -17,11 +17,11 @@ const ToolsPanel = () => {
 
   return (
     <div id="drag-items" className={'tools-panel ' + classes.toolsPanel}>
-      <ToolsButton Id={'menu'} icon={button.iconBurger} component={MenuSideBar()} />
-      <ToolsButton Id={'image'} icon={button.iconImage} component={ImagesSideBar()} />
-      <ToolsButton Id={'shape'} icon={button.iconShape} component={ShapeSideBar()} />
-      <ToolsButton Id={'text'} icon={button.iconText} component={TextSideBar()} />
-      <ToolsButton Id={'canvas'} icon={button.iconCanvas} component={CanvasSideBar()} />
+      <ToolsButton Id={'menu'} canvasNode={false} icon={button.iconBurger} component={MenuSideBar()} />
+      <ToolsButton Id={'image'} canvasNode={false} icon={button.iconImage} component={ImagesSideBar()} />
+      <ToolsButton Id={'shape'} canvasNode={true} icon={button.iconShape} component={ShapeSideBar()} />
+      <ToolsButton Id={'text'} canvasNode={true} icon={button.iconText} component={TextSideBar()} />
+      <ToolsButton Id={'canvas'} canvasNode={false} icon={button.iconCanvas} component={CanvasSideBar()} />
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { observer } from 'mobx-react-lite';
-import { panelStore } from '../../mobx/Store';
+import { sidePanelStore } from '../../store/Store';
 
 import { styles } from '../../style/style';
 
 const SideBar = observer(() => {
     const classes = styles();
-    const store = useContext(panelStore);
+    const store = useContext(sidePanelStore);
 
     let toggle = store.show;
 

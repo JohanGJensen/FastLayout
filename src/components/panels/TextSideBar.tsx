@@ -1,6 +1,7 @@
 import React from 'react';
 
-function TextSideBar() {
+const TextSideBar = () => {
+
     return (
         <p className={'paragraph'}>Text Menu</p>
     )

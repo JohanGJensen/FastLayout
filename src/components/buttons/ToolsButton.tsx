@@ -1,15 +1,23 @@
 import React, { useContext } from "react";
 import { observer } from 'mobx-react-lite';
-import { panelStore } from '../../mobx/Store';
+import { sidePanelStore, toolStore } from '../../store/Store';
 
 import { buttons } from "../../style/style";
 
-const ToolsButton = observer((props: { Id: string, icon: string, component: JSX.ElementAttributesProperty }) => {
-    const store = useContext(panelStore);
+const ToolsButton = observer((props: { Id: string, canvasNode: boolean, icon: string, component: JSX.ElementAttributesProperty }) => {
+    const pStore = useContext(sidePanelStore);
+    const tStore = useContext(toolStore);
     const classes = buttons();
 
+    const onClick = () => {
+        pStore.toggleSidebar(props.Id, props.canvasNode);
+        pStore.setComponent(props.component);
+
+        tStore.setCurrentTool(props.Id);
+    }
+
     return (
-        <button onClick={() => { store.toggle(props.Id); store.setComponent(props.component) }} className={classes.toolsButton + ' ' + props.icon} />
+        <button title={props.Id} onClick={() => onClick()} className={classes.toolsButton + ' ' + props.icon} />
     );
 });
 

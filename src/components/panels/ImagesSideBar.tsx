@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 // import Konva from "konva";
 
-import { konvaStore, imageObject } from '../../mobx/Store';
+import { konvaStore, imageObject } from '../../store/Store';
 
 function ImagesSideBar() {
     const store = useContext(konvaStore);
@@ -58,7 +58,33 @@ function ImagesSideBar() {
     const onDrag = (e: { preventDefault: () => void; }, image: imageObject) => {
         e.preventDefault();
 
-        store.setDraggedImage(image);
+        store.setImageObject(image);
+    }
+
+    const onClick = (image: imageObject) => {
+        let stage = store.stage;
+        let layer = store.layer;
+
+        if (!stage || !layer) return;
+
+        const konvaImage = store.getImageNode();
+        const imageObj = new Image();
+
+        imageObj.onload = function () {
+            konvaImage.image(imageObj);
+            layer.draw();
+        };
+        imageObj.src = image.src;
+
+        layer.add(konvaImage);
+
+        store.setImageObject({
+            id: null,
+            src: '',
+            alt: '',
+            width: 0,
+            height: 0,
+        });
     }
 
     const getImages = () => {
@@ -66,20 +92,24 @@ function ImagesSideBar() {
             return (
                 <img
                     onDrag={e => onDrag(e, image)}
+                    onClick={() => onClick(image)}
                     key={image.id}
                     className={'image-sidebar-image'}
                     src={image.src}
-                    alt={image.alt} />
+                    alt={image.alt}
+                />
             )
         });
     }
 
     return (
         <>
-            {getImages()}
-            <div key={2} className={'upload-btn-wrapper'}>
-                <button key={3} className={'btn'}>Upload a file</button>
-                <input key={4} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpload(e)} type="file" name="myfile" multiple />
+            <div key={'image-wrapper'} className={'image-sidebar-wrapper'}>
+                {getImages()}
+            </div>
+            <div key={'image-upload-btn-wrapper'} className={'upload-btn-wrapper'}>
+                <button key={'image-upload-btn'} className={'btn'}>Upload a file</button>
+                <input key={'image-upload-input'} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpload(e)} type="file" name="myfile" multiple />
             </div>
         </>
     );
